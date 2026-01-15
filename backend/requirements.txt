@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+langgraph
+langchain
+langchain-huggingface
+huggingface_hub
+pillow
+pymupdf
+pytesseract
+python-dotenv
+requests

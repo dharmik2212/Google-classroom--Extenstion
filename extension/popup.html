@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classroom Bot</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      width: 360px;
+      padding: 12px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0b0f14;
+      color: #e5e7eb;
+    }
+    h3 {
+      margin: 0 0 2px 0;
+      font-size: 15px;
+      font-weight: 650;
+      color: #f3f4f6;
+    }
+    .sub {
+      margin: 0 0 10px 0;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .card {
+      background: #0f172a;
+      border: 1px solid #243244;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 88px;
+      max-height: 180px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #2a3a52;
+      background: #0b1220;
+      color: #e5e7eb;
+      outline: none;
+      font-size: 13px;
+      line-height: 1.35;
+      resize: vertical;
+    }
+    textarea::placeholder {
+      color: #9ca3af;
+    }
+    textarea:focus {
+      border-color: #5b7aa6;
+    }
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #2a3a52;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    #answer {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #243244;
+      border-radius: 10px;
+      background: #0b1220;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #e5e7eb;
+      white-space: normal;
+      word-break: break-word;
+      max-height: 260px;
+      overflow: auto;
+    }
+    #answer[data-mode="text"] {
+      white-space: pre-wrap;
+    }
+    #answer:empty {
+      display: none;
+    }
+
+    /* Markdown styling */
+    #answer p { margin: 0 0 10px 0; }
+    #answer p:last-child { margin-bottom: 0; }
+    #answer h1, #answer h2, #answer h3, #answer h4, #answer h5, #answer h6 {
+      margin: 10px 0 6px 0;
+      font-weight: 700;
+      color: #f3f4f6;
+    }
+    #answer h1 { font-size: 16px; }
+    #answer h2 { font-size: 15px; }
+    #answer h3 { font-size: 14px; }
+    #answer h4, #answer h5, #answer h6 { font-size: 13px; }
+
+    #answer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+    #answer a:hover { text-decoration: underline; }
+
+    #answer ul, #answer ol {
+      margin: 6px 0 10px 18px;
+      padding: 0;
+    }
+    #answer li { margin: 4px 0; }
+
+    #answer blockquote {
+      margin: 8px 0;
+      padding: 6px 10px;
+      border-left: 3px solid #2a3a52;
+      background: rgba(255, 255, 255, 0.04);
+      color: #d1d5db;
+      border-radius: 8px;
+    }
+
+    #answer code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.15em 0.35em;
+      border-radius: 6px;
+    }
+    #answer pre {
+      margin: 8px 0 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #243244;
+      background: #070b12;
+      overflow: auto;
+    }
+    #answer pre code {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      display: block;
+      white-space: pre;
+    }
+
+    #answer table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 10px 0;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid #243244;
+    }
+    #answer th, #answer td {
+      border-bottom: 1px solid #243244;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    #answer th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #f3f4f6;
+      font-weight: 700;
+    }
+    #answer tr:last-child td { border-bottom: none; }
+    #answer hr {
+      border: 0;
+      border-top: 1px solid #243244;
+      margin: 10px 0;
+    }
+
+    #answer img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 8px 0 10px 0;
+      border-radius: 10px;
+      border: 1px solid #243244;
+      background: #070b12;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Classroom Bot</h3>
+    <p class="sub">Ask a question about the current page.</p>
+    <label for="question" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Question</label>
+    <textarea id="question" name="question" placeholder="Ask about this page..."></textarea>
+    <button id="ask" type="button">Ask AI</button>
+    <div id="answer"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
